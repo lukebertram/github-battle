@@ -1,23 +1,25 @@
 const axios = require('axios');
 
-const id = "GITHUB_CLIENT_ID";
-const secret = "GITHUB_SECRET_ID";
-const params = "?client_id=" + id + "&client_secret=" + secret;
+// const id = "GITHUB_CLIENT_ID";
+// const secret = "GITHUB_SECRET_ID";
+// const params = "?client_id=" + id + "&client_secret=" + secret;
 
 function getProfile(username) {
-	return axios.get('https://api.github.com/users/' + username + params)
+	// return axios.get('https://api.github.com/users/' + username + params)
+	return axios.get('https://api.github.com/users/' + username)
 		.then(function(user) {
 			return user.data;
 		})
 }
 
 function getRepos(username) {
-	return axios.get(('https://api.github.com/users/' + username + '/repos' + params + '&per_page=100')
+	// return axios.get('https://api.github.com/users/' + username + '/repos' + params + '&per_page=100')
+	return axios.get('https://api.github.com/users/' + username + '/repos' + '?per_page=100');
 }
 
 function getStarCount(repos) {
-	return repos.data.reduce(function(count, repos) {
-		count + repo.stargazers_count;
+	return repos.data.reduce(function(count, repo) {
+		return count + repo.stargazers_count;
 	}, 0);
 }
 
@@ -37,7 +39,7 @@ function getUserData(player) {
 	return axios.all([
 		getProfile(player),
 		getRepos(player)
-	]).then(function() {
+	]).then(function(data) {
 		const profile = data[0];
 		const repos = data[1];
 
