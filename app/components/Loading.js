@@ -13,25 +13,18 @@ class Loading extends React.Component {
 
 		this.state = {
 			text: props.text
-		};
+		}
 	}
 	componentDidMount() {
-		const maxDots = this.props.text + '...';
-		this.interval = window.setInterval(function() {
+		const { text, speed } = this.props;
+		const maxDots = text + '...';
+		this.interval = window.setInterval(() => {
 			if (this.state.text === maxDots) {
-				this.setState(function() {
-					return {
-						text: this.props.text
-					}
-				})
+				this.setState(() => ({text: this.props.text}))
 			} else {
-				this.setState(function(prevState) {
-					return {
-						text: prevState.text + '.'
-					}
-				})
+				this.setState((prevState) => ({text: prevState.text + '.'}))
 			}
-		}.bind(this), this.props.speed)
+		}, speed)
 	}
 	componentWillUnmount() {
 		window.clearInterval(this.interval);

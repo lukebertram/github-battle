@@ -1,5 +1,5 @@
 const React = require('react');
-const NavLink = require('react-router-dom').NavLink;
+const { NavLink } = require('react-router-dom');
 
 function Nav() {
 	return(
@@ -20,7 +20,7 @@ function Nav() {
 				</NavLink>
 			</li>
 		</ul>
-	);
+	)
 }
 
 module.exports = Nav;

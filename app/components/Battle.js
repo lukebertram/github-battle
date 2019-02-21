@@ -13,11 +13,10 @@ class PlayerInput extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
-	handleChange(event) {
-		const value = event.target.value;
-		this.setState( function() {
+	handleChange({target}) {
+		this.setState(() =>{
 			return {
-				username: value
+				username: target.value
 			}
 		})
 	}
@@ -73,17 +72,17 @@ class Battle extends React.Component {
 		this.handleReset = this.handleReset.bind(this);
 	}
 	handleSubmit(id, username) {
-		this.setState(function () {
-			let newState = {};
+		this.setState(() => {
+			const newState = {};
 			newState[id + 'Name'] = username;
-			newState[id + 'Image'] = 'https://github.com/' + username + '.png?size=200';
+			newState[id + 'Image'] = `https://github.com/${username}.png?size=200`;
 			return newState;
 		})
 	}
 
 	handleReset(id) {
-		this.setState(function () {
-			let newState = {};
+		this.setState(() => {
+			const newState = {};
 			newState[id + 'Name'] = '';
 			newState[id + 'Image'] = null;
 			return newState;
@@ -92,10 +91,10 @@ class Battle extends React.Component {
 
 	render() {
 		const match = this.props.match;
-		const playerOneName = this.state.playerOneName;
-		const playerTwoName = this.state.playerTwoName;
-		const playerOneImage = this.state.playerOneImage;
-		const playerTwoImage = this.state.playerTwoImage;
+		const { playerOneName,
+				playerTwoName,
+				playerOneImage,
+				playerTwoImage } = this.state;
 
 		return (
 			<div className='battle-container'>
@@ -142,7 +141,7 @@ class Battle extends React.Component {
 					<Link
 						className='button'
 						to={{
-							pathname: match.url + '/results',
+							pathname: `${match.url}/results`,
 							search: `?playerOneName=${playerOneName}&playerTwoName=${playerTwoName}`
 						}}>
 						Battle
